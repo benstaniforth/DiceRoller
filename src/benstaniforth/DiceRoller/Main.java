@@ -15,8 +15,9 @@ public class Main {
         System.out.println("How many dice would you like to roll?? > ");
         int numberOfDice = getNumberFromUser();
 
-        System.out.println("You rolled the following > ");
-        displayMultipleDiceRolls(numberOfDice, sidesOnDice);
+        System.out.println("You rolled a total of > ");
+        calculateSumOfRolls(numberOfDice, sidesOnDice);
+
     }
 
 
@@ -39,6 +40,18 @@ public class Main {
             System.out.println(randomRoll(sidesOnDice));
 
         }
+    }
+
+    public static void calculateSumOfRolls (int numberOfDice, int sidesOnDice) {
+
+        // Calculates the sum of all the numbers rolled
+        int sumOfRolls = 0;
+        for (int diceRolled = 0; diceRolled < numberOfDice; diceRolled++) {
+            sumOfRolls += (randomRoll(sidesOnDice));
+        }
+        
+        System.out.println(sumOfRolls);
+
 
     }
 
