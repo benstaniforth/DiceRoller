@@ -12,16 +12,15 @@ public class Main {
 
 
 
-
     }
+
 
     public static int randomRoll () {
 
         // Returns random number between 1 and 6
         Random random = new Random();
-        int randomNumber = random.nextInt((6-1)+1) + 1;
 
-        return randomNumber;
+        return random.nextInt(6) + 1;
 
     }
 
