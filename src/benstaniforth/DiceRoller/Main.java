@@ -1,7 +1,5 @@
 package benstaniforth.DiceRoller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,8 +11,10 @@ public class Main {
 
         System.out.println("How many dice would you like to roll?? > ");
 
-        System.out.println("You rolled the following > " + HowManyDiceToRoll());
+        int numberOfDice = howManyDiceToRoll();
 
+        System.out.println("You rolled the following > ");
+        displayMultipleDiceRolls(numberOfDice);
     }
 
 
@@ -26,22 +26,18 @@ public class Main {
 
     }
 
-    public static List<Integer> HowManyDiceToRoll () {
-
+    public static int howManyDiceToRoll () {
         // Prompts user for number of dice and outputs dice rolls
-
         Scanner scanner = new Scanner(System.in);
-        int numberOfRolls = scanner.nextInt();
+        return scanner.nextInt();
+    }
 
-        List<Integer> diceRolled = new ArrayList<>();
+    public static void displayMultipleDiceRolls (int numberOfDice) {
 
-        for (int i = 0; i < numberOfRolls; i++ ) {
-            diceRolled.add(randomRoll());
+        for (int diceRolled = 0; diceRolled < numberOfDice; diceRolled++ ) {
+            System.out.println(randomRoll());
 
         }
-
-        return diceRolled;
-        
 
     }
 
