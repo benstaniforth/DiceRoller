@@ -17,7 +17,7 @@ public class Main {
 
         System.out.println("You rolled a total of > ");
         calculateSumOfRolls(numberOfDice, sidesOnDice);
-
+        
     }
 
 
@@ -49,9 +49,8 @@ public class Main {
         for (int diceRolled = 0; diceRolled < numberOfDice; diceRolled++) {
             sumOfRolls += (randomRoll(sidesOnDice));
         }
-        
-        System.out.println(sumOfRolls);
 
+        System.out.println(sumOfRolls);
 
     }
 
