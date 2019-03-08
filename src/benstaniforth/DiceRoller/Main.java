@@ -12,43 +12,16 @@ public class Main {
         System.out.println("Welcome to the dice roller");
 
         System.out.println("Would you like to use a standard or custom dice? > ");
-        String diceTypeChoice = getInputFromUser();
+        Boolean isCustom = getInputFromUser().equalsIgnoreCase("Custom");
 
 
-        if (diceTypeChoice.equalsIgnoreCase("custom")) {
+        Dice dice = isCustom ? getCustomDiceFromUser() : getStandardDiceFromUser();
+        System.out.println("How many rolls would you like?");
+        int numberOfRolls = Integer.parseInt(getInputFromUser());
+        int totalRoll = calculateTotalRoll(dice, numberOfRolls);
 
-            System.out.println("How many sided dice would you like to use? > ");
-            int sidesOnCustomDice = Integer.parseInt(getInputFromUser());
+        System.out.println("You rolled a total value of > " + totalRoll);
 
-            System.out.println("Please enter the values you would like to be on the faces > ");
-            List<Integer> customValues = getCustomFacesChoice(sidesOnCustomDice);
-
-            System.out.println("How many dice would you like to roll? > ");
-            int numberOfCustomDice = Integer.parseInt(getInputFromUser());
-
-            System.out.println("You rolled a total of > ");
-            calculateSumOfCustomRolls(numberOfCustomDice, customValues);
-
-
-        } else {
-            System.out.println("How many sided dice would you like to use? > ");
-            int sidesOnDice = Integer.parseInt(getInputFromUser());
-
-            System.out.println("How many dice would you like to roll? > ");
-            int numberOfDice = Integer.parseInt(getInputFromUser());
-
-            System.out.println("You rolled a total of > ");
-            calculateSumOfStandardRolls(numberOfDice, sidesOnDice);
-        }
-
-
-    }
-
-
-    public static int randomRoll (int sidesOnDice) {
-        // Returns random number between 1 and 6
-        Random random = new Random();
-        return random.nextInt(sidesOnDice) + 1;
     }
 
 
@@ -59,38 +32,106 @@ public class Main {
     }
 
 
-    public static void calculateSumOfStandardRolls (int numberOfDice, int sidesOnDice) {
 
-        // Calculates the sum of all the numbers rolled
-        int sumOfStandardRolls = 0;
-        for (int diceRolled = 0; diceRolled < numberOfDice; diceRolled++) {
-            sumOfStandardRolls += (randomRoll(sidesOnDice));
-        }
+    private static Dice getCustomDiceFromUser () {
 
-        System.out.println(sumOfStandardRolls);
-    }
+        List <Integer> customFaces = new ArrayList<>();
 
-    public static List<Integer> getCustomFacesChoice (int sidesOnCustomDice) {
+        System.out.println("How many sides would you like your dice to have? >");
+        int numberOfSides = Integer.parseInt(getInputFromUser());
 
-        List<Integer> customFaces = new ArrayList<>();
-
-        for (int i = 0; i < sidesOnCustomDice; i++){
+        System.out.println("Please enter the values you would like to be on the faces > ");
+        for (int i = 0; i < numberOfSides; i++){
             customFaces.add(Integer.valueOf(getInputFromUser()));
         }
 
-        return customFaces;
-
+        return new CustomDice(numberOfSides, customFaces);
     }
 
-    public static void calculateSumOfCustomRolls (int numberOfCustomDice, List<Integer> customFaces) {
 
-        int sumOfCustomRolls = 0;
-        for (int diceRolled = 0; diceRolled < numberOfCustomDice; diceRolled++){
-            sumOfCustomRolls += customFaces.get(randomRoll(customFaces.size())-1);
+    private static Dice getStandardDiceFromUser () {
+
+        System.out.println("How many sides would you like your dice to have? >");
+        int numberOfSides = Integer.parseInt(getInputFromUser());
+
+        return new StandardDice(numberOfSides);
+    }
+
+
+    private static int calculateTotalRoll (Dice dice, int numberOfRolls) {
+
+        int sumOfRolls = 0;
+        for (int i = 0; i < numberOfRolls; i++) {
+            sumOfRolls += dice.roll();
         }
 
-        System.out.println(sumOfCustomRolls);
+        return sumOfRolls;
     }
 
-
 }
+
+//
+//        if (diceTypeChoice.equalsIgnoreCase("custom")) {
+//
+//                System.out.println("How many sided dice would you like to use? > ");
+//                int sidesOnCustomDice = Integer.parseInt(getInputFromUser());
+//
+//                System.out.println("Please enter the values you would like to be on the faces > ");
+//                List<Integer> customValues = getCustomFacesChoice(sidesOnCustomDice);
+//
+//        System.out.println("How many dice would you like to roll? > ");
+//        int numberOfCustomDice = Integer.parseInt(getInputFromUser());
+//
+//        System.out.println("You rolled a total of > ");
+//        calculateSumOfCustomRolls(numberOfCustomDice, customValues);
+//
+//
+//        } else {
+//        System.out.println("How many sided dice would you like to use? > ");
+//        int sidesOnDice = Integer.parseInt(getInputFromUser());
+//
+//        System.out.println("How many dice would you like to roll? > ");
+//        int numberOfDice = Integer.parseInt(getInputFromUser());
+//
+//        System.out.println("You rolled a total of > ");
+//        calculateSumOfStandardRolls(numberOfDice, sidesOnDice);
+//        }
+//
+//    public static int randomRoll (int sidesOnDice) {
+//        // Returns random number between 1 and 6
+//        Random random = new Random();
+//        return random.nextInt(sidesOnDice) + 1;
+//    }
+
+//    public static List<Integer> getCustomFacesChoice (int sidesOnCustomDice) {
+//
+//        List<Integer> customFaces = new ArrayList<>();
+//
+//        for (int i = 0; i < sidesOnCustomDice; i++){
+//            customFaces.add(Integer.valueOf(getInputFromUser()));
+//        }
+//
+//        return customFaces;
+//
+//    }
+//
+//public static void calculateSumOfStandardRolls (int numberOfDice, int sidesOnDice) {
+//
+//        // Calculates the sum of all the numbers rolled
+//        int sumOfStandardRolls = 0;
+//        for (int diceRolled = 0; diceRolled < numberOfDice; diceRolled++) {
+//            sumOfStandardRolls += (randomRoll(sidesOnDice));
+//        }
+//
+//        System.out.println(sumOfStandardRolls);
+//    }
+//
+//        public static void calculateSumOfCustomRolls (int numberOfCustomDice, List<Integer> customFaces) {
+//
+//        int sumOfCustomRolls = 0;
+//        for (int diceRolled = 0; diceRolled < numberOfCustomDice; diceRolled++){
+//            sumOfCustomRolls += customFaces.get(randomRoll(customFaces.size())-1);
+//        }
+//
+//        System.out.println(sumOfCustomRolls);
+//    }

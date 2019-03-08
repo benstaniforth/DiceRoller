@@ -1,6 +1,7 @@
 package benstaniforth.DiceRoller;
 
 import java.util.List;
+import java.util.Random;
 
 public class CustomDice implements Dice {
 
@@ -15,7 +16,8 @@ public class CustomDice implements Dice {
     @Override
     public int roll() {
 
+        Random random = new Random();
+        return customFaces.get(random.nextInt(numberOfSides));
 
-        return 0;
     }
 }
